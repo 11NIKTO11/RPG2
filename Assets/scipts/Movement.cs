@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     private Rigidbody2D movableRigidbody;
     private Transform movableTransform;
     private CapsuleCollider2D movableCollider;
+    private float overlapRadius = 0.1f;
+    [SerializeField] private LayerMask whatIsGround;
 
     [SerializeField] private float velocityMultiplier = 5f;
     [SerializeField] private float jumpMultiplier = 400f;
@@ -41,13 +43,13 @@ public class Movement : MonoBehaviour
 
     private void Crouch(bool crouch)
     {
-        if ((!crouched) && crouch)
+        if (!crouched && crouch)
         {
             movableCollider.size = new Vector2(colliderSize.x, colliderSize.y * crouchHeightMultiplier);
             movableCollider.offset = colliderOffset + new Vector2(0, -colliderSize.y * crouchHeightMultiplier / 2);
             crouched = true;
         }
-        else if ((crouched) && !crouch)
+        else if (crouched && !crouch && !Physics2D.OverlapCircle(new Vector2(movableTransform.position.x, movableTransform.position.y + colliderOffset.y + (colliderSize.y / 2)), overlapRadius, whatIsGround))
         {
             movableCollider.size = colliderSize;
             movableCollider.offset = colliderOffset;
@@ -58,7 +60,7 @@ public class Movement : MonoBehaviour
     public void Move(float velocity, float jump, bool crouch)
     {
         Crouch(crouch);
-        if (movableRigidbody.velocity.y==0)
+        if (Physics2D.OverlapCircle(new Vector2(movableTransform.position.x, movableTransform.position.y + colliderOffset.y - (colliderSize.y/2)) , overlapRadius , whatIsGround))
         {
             if (crouch)
             {

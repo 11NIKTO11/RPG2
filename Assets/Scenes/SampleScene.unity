@@ -134,8 +134,7 @@ GameObject:
   - component: {fileID: 77651425}
   - component: {fileID: 77651428}
   - component: {fileID: 77651423}
-  - component: {fileID: 77651424}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,22 +157,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   m_Size: {x: 0.6, y: 1.2}
   m_Direction: 0
---- !u!58 &77651424
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77651422}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.8}
-  serializedVersion: 2
-  m_Radius: 0.3
 --- !u!50 &77651425
 Rigidbody2D:
   serializedVersion: 4
@@ -271,10 +254,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5460eac4b008a4bab263222e1d50fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1
+  overlapRadius: 0.1
   velocityMultiplier: 5
   jumpMultiplier: 400
   crouchSpeedMultiplier: 0.4
   crouchJumpMultiplier: 1.5
+  crouchHeightMultiplier: 0.5
   Efficiety: 1
 --- !u!1 &519420028
 GameObject:
