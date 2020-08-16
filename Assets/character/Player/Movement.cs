@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Contorler : MonoBehaviour
+public class Movement : MonoBehaviour
 {
-    public Movement movement;
+    public Controller controller;
+
     private float direction;
     private float jump;
     private bool crouch;
@@ -16,13 +17,15 @@ public class Contorler : MonoBehaviour
     {
         direction = Input.GetAxis("Horizontal");
         jump = Input.GetAxis("Jump");
-        Debug.Log(jump);
         crouch = Input.GetKey(KeyCode.S);
 
     }
 
     void FixedUpdate()
     {
-        movement.Move(direction * efficiecy, jump * efficiecy, crouch);
+        controller.Move(direction);
+        controller.Jump(jump);
+        controller.Crouch(crouch);
+         
     }
 }
