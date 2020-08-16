@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,7 +27,8 @@ public class Controller : MonoBehaviour,IController
     [Range(0f, 1f)] [SerializeField] private float crouchHeightMultiplier = 0.5f; //how much cillider shrinks when crouched
 
     private bool Crouched = false; //indicates if object is crouched
-    private bool Grounded;
+    private bool Grounded;         //indicates if object is standing on ground 
+    private bool right = true;
 
     // Start is called before the first frame update
     // Setting up poperties
@@ -40,6 +42,7 @@ public class Controller : MonoBehaviour,IController
         crouchHeightMultiplier = Math.Max(crouchHeightMultiplier, colliderSize.x / colliderSize.y);
         Grounded = IsGrounded();
         overlapRadius *= movableTransform.localScale.y;
+        movableTransform.localScale = new Vector2(Math.Abs( movableTransform.localScale.x),movableTransform.localScale.y);
     }
 
     void FixedUpdate()
@@ -77,6 +80,12 @@ public class Controller : MonoBehaviour,IController
         //    new Vector2(colliderSize.x * 0.3f, overlapRadius) * movableTransform.localScale.y, 0, GroundLayer);
     }
 
+    private void Flip()
+    {
+        right = !right;
+        movableTransform.localScale = new Vector2(-movableTransform.localScale.x, movableTransform.localScale.y);
+
+    }
     /// <summary>
     /// handlles transition in and out of crouch based on desired state
     /// </summary>
@@ -123,20 +132,28 @@ public class Controller : MonoBehaviour,IController
     /// <param name="direction">horizontal direction of movement</param>
     public void Move(float direction)
     {
+        if (right && (direction < 0))
+        {
+            Flip();
+        }
+        else if (!right && (direction > 0))
+        {
+            Flip();
+        }
+
         movableRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         if (Grounded)
         {
+            if (Utils.FloatEquality(direction,0))
+            {
+                movableRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            }
             if (Crouched)
             {
                 direction *= crouchSpeedMultiplier;
             }
-            if (direction == 0)
-            {
-                movableRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            }
         }
-
         movableRigidbody.velocity = new Vector2(direction * velocityMultiplier, movableRigidbody.velocity.y);
     }
 }
