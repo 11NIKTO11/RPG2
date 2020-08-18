@@ -5,12 +5,17 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Controller controller;
+    public Animator animator;
 
     private float direction;
     private float jump;
     private bool crouch;
 
     private float efficiecy = 1;
+    private void Start()
+    {
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +24,7 @@ public class Movement : MonoBehaviour
         jump = Input.GetAxis("Jump");
         crouch = Input.GetKey(KeyCode.S);
 
+        animator.SetFloat("horizontal speed", Mathf.Abs( direction));
     }
 
     void FixedUpdate()
