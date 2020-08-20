@@ -37,6 +37,7 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Vertical Velocity", rigidbody.velocity.y);
         animator.SetBool("Grounded", controller.Grounded);
         animator.SetBool("Crouched", controller.Crouched);
+        animator.SetBool("Attack", attack);
     }
 
     void FixedUpdate()
