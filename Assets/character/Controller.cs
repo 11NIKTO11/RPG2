@@ -16,7 +16,7 @@ public class Controller : MonoBehaviour, IController
 
     private Vector2 colliderSize; // normal/original collider size
     private Vector2 colliderOffset; // normal/original collider offset
-    private float overlapRadius = 0.1f; //Change  radius for collider checking  checking 
+    private float overlapRadius = 0.1f; //Change  radius for collider checking  
 
     public LayerMask GroundLayer; //define whitch layer is ground
 

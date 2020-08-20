@@ -31,7 +31,11 @@ public class Movement : MonoBehaviour
         crouch = Input.GetKey(KeyCode.S);
         //attack
         attack = Input.GetKeyDown(KeyCode.Mouse0);
-        
+        if (attack)
+        {
+            attacker.Attack();
+        }
+
         //animate
         animator.SetFloat("Horizontal Velocity", Mathf.Abs(direction));
         animator.SetFloat("Vertical Velocity", rigidbody.velocity.y);
@@ -45,11 +49,5 @@ public class Movement : MonoBehaviour
         controller.Move(direction);
         controller.Jump(jump);
         controller.Crouch(crouch);
-
-        if (attack)
-        {
-            attacker.Attack();
-        }
-         
     }
 }
