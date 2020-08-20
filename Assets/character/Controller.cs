@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Transform))]
-public class Controller : MonoBehaviour,IController
+public class Controller : MonoBehaviour, IController
 {
     private Rigidbody2D movableRigidbody;
     private Transform movableTransform;
@@ -26,8 +26,8 @@ public class Controller : MonoBehaviour,IController
     [SerializeField] private float crouchJumpMultiplier = 1.5f; //adjust jump strength when crouching
     [Range(0f, 1f)] [SerializeField] private float crouchHeightMultiplier = 0.5f; //how much cillider shrinks when crouched
 
-    private bool Crouched = false; //indicates if object is crouched
-    private bool Grounded;         //indicates if object is standing on ground 
+    public bool Crouched { get; private set; } = false; //indicates if object is crouched
+    public bool Grounded { get; private set; }       //indicates if object is standing on ground 
     private bool right = true;
 
     // Start is called before the first frame update
@@ -92,12 +92,14 @@ public class Controller : MonoBehaviour,IController
     /// <param name="crouch">desired state</param>
     public void Crouch(bool crouch)
     {
+        //crouch
         if (!Crouched && crouch)
         {
             movableCollider.size = new Vector2(colliderSize.x, colliderSize.y * crouchHeightMultiplier);
             movableCollider.offset = colliderOffset + new Vector2(0, -colliderSize.y * (1 - crouchHeightMultiplier) / 2); 
             Crouched = true;
         }
+        //uncrouch
         else if (Crouched && !crouch && CanStandUp())
         {
             movableCollider.size = colliderSize;
@@ -114,10 +116,12 @@ public class Controller : MonoBehaviour,IController
     {
         if ( Grounded)
         {
+            //adjust power
             if (Crouched)
             {
                 jump*= crouchJumpMultiplier;
             }
+            //negate prejump upvards velocity
             if (movableRigidbody.velocity.y > 0 )
             {
                 movableRigidbody.velocity = new Vector2(movableRigidbody.velocity.x,0);
@@ -132,6 +136,7 @@ public class Controller : MonoBehaviour,IController
     /// <param name="direction">horizontal direction of movement</param>
     public void Move(float direction)
     {
+        //flip to the right side
         if (right && (direction < 0))
         {
             Flip();
@@ -141,19 +146,23 @@ public class Controller : MonoBehaviour,IController
             Flip();
         }
 
+        //prevent rotation
         movableRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         if (Grounded)
         {
+            //stop sliding
             if (Utils.FloatEquality(direction,0))
             {
                 movableRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             }
+            //adjust velocity
             if (Crouched)
             {
                 direction *= crouchSpeedMultiplier;
             }
         }
+        //move
         movableRigidbody.velocity = new Vector2(direction * velocityMultiplier, movableRigidbody.velocity.y);
     }
 }
