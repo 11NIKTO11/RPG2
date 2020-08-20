@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
 
-    [SerializeField] protected int MaxHP = 1000;
+    [SerializeField] public int MaxHP { get; private set; } = 1000;
     public int actualHP { get; private set; }
     [SerializeField] public int Damage { get; protected set; }
 
