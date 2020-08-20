@@ -109,7 +109,7 @@ public class Controller : MonoBehaviour, IController
     }
 
     /// <summary>
-    /// Jump 
+    /// Makes character jump based on input
     /// </summary>
     /// <param name="jump"></param>
     public void Jump(float jump)

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 77651424}
   - component: {fileID: 77651428}
   - component: {fileID: 77651429}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 77651428}
   animator: {fileID: 77651429}
+  attacker: {fileID: 622548995}
 --- !u!50 &77651425
 Rigidbody2D:
   serializedVersion: 4
@@ -253,8 +254,9 @@ Transform:
   m_GameObject: {fileID: 77651422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.177, z: 0}
-  m_LocalScale: {x: 1.6071, y: 1.6071, z: 0}
-  m_Children: []
+  m_LocalScale: {x: 1.4048305, y: 1.4048305, z: 0}
+  m_Children:
+  - {fileID: 622548994}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   velocityMultiplier: 5
   jumpMultiplier: 400
   crouchSpeedMultiplier: 0.4
@@ -307,7 +309,6 @@ GameObject:
   m_Component:
   - component: {fileID: 148308446}
   - component: {fileID: 148308445}
-  - component: {fileID: 148308447}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51acc8d3fc33f34da6819444e4a3302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 10
   mob: {fileID: 6980500549924047535, guid: 66e2b47df61d104449f40021d9aefd1e, type: 3}
 --- !u!4 &148308446
 Transform:
@@ -342,32 +344,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &148308447
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148308444}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +442,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &622548993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622548994}
+  - component: {fileID: 622548995}
+  m_Layer: 10
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &622548994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622548993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.249, y: -0.701, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_Children: []
+  m_Father: {fileID: 77651427}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622548995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622548993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932e3008d766be44e88d062d88dc4dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 1.51, y: 1}
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1457276129
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +598,7 @@ GameObject:
   - component: {fileID: 1588337038}
   - component: {fileID: 1588337037}
   - component: {fileID: 1588337036}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2647,7 +2670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968878374}
   - component: {fileID: 1968878373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    private int i= 0;
+    [SerializeField] private int count= 1;
     public GameObject mob;
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < count; i++)
+        {
+            Instantiate(mob);
+        }        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (i<1)
-        {
-            Instantiate(mob);
-            i++;
-        }
+
     }
 }
