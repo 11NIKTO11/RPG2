@@ -45,6 +45,8 @@
 
 ## Začiatok
 
+Aby som na projekto mohol vobec robyť musim sa najskor obeznámiť so zkaladným funguvaním programu v unity a jej ponukanymi funkciami 
+
 ### Informácie
 
  **Platforma** : Projekt budem robiť v UNITY
@@ -114,6 +116,8 @@ Zatial len ako koncept ovplivnujúci rýchlosť a vyšku skoku postavy
 Kamera upravuje svoju pozíciu tak ay bola fixná vzhladom na momentálnu hračovu polohu
 
 ## Pohyby
+
+Základnou funkčnostou hry a pre jej testovanie je aby sme sa s postavou mohli hybať z miesta na miesto.
 
 ### Grid a Tiles
 
@@ -205,13 +209,80 @@ Kod som rozdelil do časti pre pohyb,skok a skrčenie. Taktiež niektore časti 
 ##### Icontroller
 Intrefece nefungoval ako bol zamyšlany keďže do interfacovej premennej nešlo priradzovať v  Unity
 
-### Otačanie a informacie pre animacie
+### Otačanie 
 
 #### ciel
 * otočit postavu do smeru kam ide
-* zavereniť informacie o posrave potrebne pre animacie
 
 #### Priebeh
 
-##### otočenie
 povodna myšlienka nefungovala pre pomale poravnavanie a upravovanie floatov. Premena na porovnavenie boolov a floatov s <> už bolo dostatočne responzívne.
+
+### Animácia nečinnosti a chodze
+
+#### ciel
+* pridať animíciu chodenia a nečinnosti
+* prepínať medzi nimi podla činnosti postavy
+
+#### Priebeh
+Vytvorenie animatora a nesledné animacie vložiť do nevej zložky Animation.
+Pridať jednotlive prechody ktoré potrebuje prechodové podmienky, teda animator potrebuje vedieť rýchlost. Pridal som do animatora premennu Horizontal velocity. Movement script upravuje tuto premennu na základe vstupu od hráča.
+
+### Animácia skoku a skrčenia
+
+#### ciel
+* pridať animíciu skoku a skrčenia
+* integracia medzi existujúce animácie
+* zprísupnič potrebné informácie animatoru
+
+#### Priebeh
+Pridanie animáci a vztahov medzi nimi nebolo zložité. Bolo však nutné pridať niekolko parametrou určujúcich vztah medzi jednotlivími animáciami ako napríklad či je na zemi aku má rychosť vertikálne horizontalne, či je skrčeny a podobne. O správnu nastavovanie parametrou sa stara skript movement.
+
+## Útok
+Dalšia sada akci ktoré može postava vykonávať je interagovať s inymi postavami formou suboja.
+
+### detekcia uderu
+
+#### ciel
+
+* ako nastaviť a detekovať čo postava zasiahla
+
+#### priebeh
+
+podobne ako pri detekovaní či je postava na zemi alebo či sa može postaviť využijeme metodu z kategorie overlaping. Povodny zámer bol aby postava mala pred sebou kruhový vysek v ktorom zasahuje všetky zasiahnutelné entity. Naneštastie som neprišiel na jednoduchy spôsob ako skontorlovať tvar kruhovej vyseče a ešte zložitejšie by bolo ju nasledne jednoducho vykresliť cez gizmos. Najprijatelnejši z jednoducho implementovatelných tvarom mi prišiel obdlžnik, kedže sa najviac podobá tvaru meča.Tento obdlžnik je určeny stredom a rozmermi kedže táto definicia nepodlieha zmenam v umiestnená pri otočení postavy.
+
+### pridanie animácie
+
+#### ciel
+* pridať aniimáciu utoku na zemy a počas skoku
+
+#### priebeh
+Priadnie animácie utoku k  povodným animáciam pohybu. Stavový graf nabral dosť na komplexnosti a nesprával sa vždy ako bolo požadované. Po zoznamení sa s zakladným fungovanim Layerv v animáciach boli animácie utoku prenunuté na novu vrstvu. Teraz už fungovali ako bolo zamyšlane.
+
+## Staty a UI
+
+Aby sa dalej dalo implementovať správanie utokov musíme najskor entitám v hre priradiť nejake staty : život.vydrž a podobne. Aby sa počas hry dobre kontrolovali bude taktiež vhodne vyrobiť zýkla pre UI zobrazujuce tieto staty.
+
+### staty
+
+#### ciel
+* vyvoriť zakladnu triedu obsahujúcu všetky infirmácie ktoré musi mať každá postava v hre. Od tejto triedy budu dalej dedit všetky ostané rozvynutejšie staty pre rozne postavy.
+
+#### priebeh
+jednoducho popridávať a správne sprístupniť propertie statov. Prevažne chceme aby mohli byť vyditelne zvonka, ale uopravovať sa možu iba interne alebo cez príslušné metody.
+
+### HPbar
+
+#### ciel
+* vytvoriť rozhranie pre UI
+* oboznámiť sa s fungovanim UI, a ponukaními riešeniami UI v unity
+* vytvoriť HP bar.
+
+#### priebeh
+
+Po naštudovaní si niekolkych možných pristupov som vytvoril pomocou unity UI platno pre UI hráča. Dalej pridal HP bar a oboznamovla sa s jednotlivými componentami UI ako slider. Nasledne použitie tejto komponenty pre zobrazovanie aktuálneho stavu života postavy.
+
+
+
+
+
